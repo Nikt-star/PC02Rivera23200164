@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.pc02rivera23200164"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.rivera.app"
-        minSdk = 24
-        targetSdk = 35
+        minSdk = 26
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
