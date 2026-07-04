@@ -31,6 +31,12 @@ fun ConversionScreen(onLogout: () -> Unit, onGoToHistory: () -> Unit) {
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
 
+    // Cumplir con el requisito de dos colecciones: Inicializar 'rates'
+    LaunchedEffect(Unit) {
+        val ratesData = mapOf("supported" to currencies)
+        db.collection("rates").document("config").set(ratesData)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()

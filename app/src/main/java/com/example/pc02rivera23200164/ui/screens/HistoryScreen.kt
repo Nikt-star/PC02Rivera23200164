@@ -13,6 +13,7 @@ import com.example.pc02rivera23200164.model.ConversionRecord
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,7 +67,7 @@ fun HistoryScreen(onBack: () -> Unit) {
                             Text("Fecha: ${record.timestamp.toDate()}", style = MaterialTheme.typography.labelSmall)
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
-                                "${record.amount} ${record.fromCurrency} -> ${String.format("%.2f", record.result)} ${record.toCurrency}",
+                                "${record.amount} ${record.fromCurrency} -> ${String.format(Locale.US, "%.2f", record.result)} ${record.toCurrency}",
                                 style = MaterialTheme.typography.bodyLarge
                             )
                         }
