@@ -4,14 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.pc02rivera23200164.ui.screens.ConversionScreen
+import com.example.pc02rivera23200164.ui.screens.HistoryScreen
+import com.example.pc02rivera23200164.ui.screens.LoginScreen
 import com.example.pc02rivera23200164.ui.theme.Pc02Rivera23200164Theme
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,29 +20,43 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Pc02Rivera23200164Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppNavigation()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun AppNavigation() {
+    val navController = rememberNavController()
+    val auth = FirebaseAuth.getInstance()
+    val startDestination = if (auth.currentUser != null) "conversion" else "login"
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Pc02Rivera23200164Theme {
-        Greeting("Android")
+    NavHost(navController = navController, startDestination = startDestination) {
+        composable("login") {
+            LoginScreen(onLoginSuccess = {
+                navController.navigate("conversion") {
+                    popUpTo("login") { inclusive = true }
+                }
+            })
+        }
+        composable("conversion") {
+            ConversionScreen(
+                onLogout = {
+                    auth.signOut()
+                    navController.navigate("login") {
+                        popUpTo("conversion") { inclusive = true }
+                    }
+                },
+                onGoToHistory = {
+                    navController.navigate("history")
+                }
+            )
+        }
+        composable("history") {
+            HistoryScreen(onBack = {
+                navController.popBackStack()
+            })
+        }
     }
 }

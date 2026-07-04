@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "522655021164",
+    "project_id": "pc02rivera23200164",
+    "storage_bucket": "pc02rivera23200164.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522655021164:android:52e866553d051c00434049",
+        "android_client_info": {
+          "package_name": "com.rivera.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8rpWtunuzaq8chXoccB4KQ7kw9xZsbxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
